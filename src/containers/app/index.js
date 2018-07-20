@@ -1,18 +1,19 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
-import Home from '../home'
-import About from '../about'
+import Heroes from '../heroes'
+import Dashboard from '../dashboard'
+import './app.css'
 
 const App = () => (
   <div>
-    <header>
-      <Link to="/">Home</Link>
-      <Link to="/about-us">About</Link>
-    </header>
+    <nav>
+      <Link to="/">Dashboard</Link>
+      <Link to="/heroes">Heroes</Link>
+    </nav>
 
     <main>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/about-us" component={About} />
+      <Route exact path="/" component={Dashboard} />
+      <Route exact path="/heroes" component={Heroes} />
     </main>
   </div>
 )

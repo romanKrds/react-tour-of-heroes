@@ -4,6 +4,7 @@
   "scripts": {
     "deploy": "now && now alias",
     "start": "react-scripts start",
+    "server": "json-server --watch ./server/db.json --port 3004",
     "now-start": "serve -s ./build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -11,6 +12,7 @@
     "precommit": "pretty-quick --staged"
   },
   "devDependencies": {
+    "json-server": "^0.14.0",
     "prettier": "1.13.7",
     "react-scripts": "1.1.4"
   },
