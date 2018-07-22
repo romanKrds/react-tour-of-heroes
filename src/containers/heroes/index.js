@@ -2,25 +2,23 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { loadHeroes } from '../../modules/actions/heroes'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import './heroes.css'
-
+import { DeleteButton } from './style'
 
 class Heroes extends Component {
-
-	componentDidMount(){
-		this.props.loadHeroes();
+	state = {
+		deleteBtnColor: 'white',
 	}
 
 	addHero = () => {
 		console.log(`Add hero function. Not implemented yet`);
+		this.setState({ deleteBtnColor: 'red' });
 	}
 
 	deleteHero = () => {
 		console.log(`Delete hero function. Not implemented yet`);
-	}
-
-	onHeroSelected = (hero) => {
-		console.log(hero);
+		this.setState({ deleteBtnColor: 'white' });
 	}
 
 	render() {
@@ -44,12 +42,12 @@ class Heroes extends Component {
 						heroesList.map( hero => {
 							return (
 								<li key={hero.id}>
-									<a>
+									<Link to={{ pathname: `/details/${hero.id}` }}>
 										<span className={`badge`}>{hero.id}</span> {hero.name}
-									</a>
-									<button className={`delete`} title="delete hero"
-											onClick={ () => {this.delete(hero)}}> x
-									</button>
+									</Link>
+									<DeleteButton color={this.state.deleteBtnColor} title="delete hero"
+											onClick={ () => {this.deleteHero(hero)}}> x
+									</DeleteButton>
 								</li>
 							)
 						})
@@ -60,10 +58,6 @@ class Heroes extends Component {
 	}
 }
 
-const mapStateToProps = ({ heroes }) => ({
-	list: heroes.list
-})
+const mapStateToProps = ({heroes}) => ({list: heroes.list});
 
-const mapDispatchToProps = dispatch => bindActionCreators({ loadHeroes }, dispatch);
-
-export default connect(	mapStateToProps, mapDispatchToProps )(Heroes);
+export default connect(	mapStateToProps ) (Heroes)

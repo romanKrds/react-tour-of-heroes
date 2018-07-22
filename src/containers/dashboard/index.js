@@ -1,25 +1,9 @@
 import React, { Component } from 'react';
 import './dashboard.css';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { loadHeroes } from '../../modules/actions/heroes'
-import { bindActionCreators } from 'redux'
-import HeroDetails from '../hero-details'
 
 class Dashboard extends Component {
-
-	state = {
-		selectedHero: undefined
-	}
-
-	componentDidMount(){
-		this.props.loadHeroes();
-	}
-
-	onHeroSelected = (hero) => {
-		this.setState({
-			selectedHero: hero
-		})
-	}
 
 	render() {
 
@@ -32,28 +16,22 @@ class Dashboard extends Component {
 					{
 						heroesList.map( hero => {
 							return (
-								<a
-									className={`col-1-4`}
-									onClick={() => this.onHeroSelected(hero)}
-							   		key={hero.id}>
-
+								<Link to={{ pathname: `/details/${hero.id}` }}
+									  className={`col-1-4`}
+									  key={hero.id}>
 									<div className={`module hero`}>
-										<h4>{hero.name}</h4>
+									<h4>{hero.name}</h4>
 									</div>
-								</a>
+								</Link>
 							)
 						})
 					}
 				</div>
-				{
-					this.state.selectedHero && <HeroDetails hero={this.state.selectedHero}/>
-				}
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = ({heroes}) => ({list: heroes.list});
-const mapDispatchToProps = dispatch => bindActionCreators({ loadHeroes }, dispatch);
 
-export default connect(	mapStateToProps, mapDispatchToProps )(Dashboard);
+export default connect(	mapStateToProps ) (Dashboard)

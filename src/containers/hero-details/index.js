@@ -5,15 +5,15 @@ import { bindActionCreators } from 'redux'
 
 class HeroDetails extends Component{
 
-	state = {
-		name: this.props.hero.name
-	}
+	// state = {
+	// 	name: this.props.hero.name
+	// }
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.hero.name !== this.state.name) {
-			this.setState({ name: nextProps.hero.name});
-		}
-	}
+	// componentWillReceiveProps(nextProps) {
+	// 	// if (nextProps.hero.name !== this.state.name) {
+	// 	// 	this.setState({ name: nextProps.hero.name});
+	// 	// }
+	// }
 
 	onUpdate = () => {
 		this.props.updateHero({
@@ -30,11 +30,15 @@ class HeroDetails extends Component{
 
 
 	render() {
-		const hero = this.props.hero;
+
+		const hero = this.props.list.filter(hero => hero.id === +this.props.match.params.id);
+
 		return (
 			<div>
+				{/*<h2>{this.props.match.params.id}</h2>*/}
 				It's Detail's view
-				<h2>{this.state.name === '' ? '<no_name>' : this.state.name } Details</h2>
+				{/*<h2>{this.state.name === '' ? '<no_name>' : this.state.name } Details</h2>*/}
+				<h2> { hero[0].name } Details</h2>
 				<div><span>id: </span>{hero.id}</div>
 				<div>
 					<label>name:
@@ -50,6 +54,5 @@ class HeroDetails extends Component{
 }
 
 const mapStateToProps = ({heroes}) => ({list: heroes.list});
-const mapDispatchToProps = dispatch => bindActionCreators({updateHero}, dispatch);
 
-export default connect(	mapStateToProps, mapDispatchToProps )(HeroDetails);
+export default connect(	mapStateToProps )(HeroDetails);

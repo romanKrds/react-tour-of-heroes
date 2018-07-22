@@ -35,6 +35,7 @@ h4 {
     min-width: 120px;
     background-color: #607D8B;
     border-radius: 2px;
+    transition: all .5s ease-in-out;
 }
 .module:hover {
     background-color: #EEE;
